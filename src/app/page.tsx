@@ -1,4 +1,6 @@
 import Hero from '../components/Hero';
+import EditorialCarousel from '../components/EditorialCarousel';
+import ProductCarousel from '../components/ProductCarousel';
 import Categories from '../components/Categories';
 import Section from '../components/Section';
 import { ShieldCheck, Gem, Users, Zap } from 'lucide-react';
@@ -11,6 +13,8 @@ export default function Home() {
         <div className="home">
             <Hero />
             <Categories />
+            <EditorialCarousel />
+            <ProductCarousel />
 
             {/* What is Blokyz */}
             <Section
