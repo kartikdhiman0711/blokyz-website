@@ -1,27 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
+  /* Colors */
+  --background: #080808;
+  --foreground: #ffffff;
+  --primary: #8b5cf6;
+  /* Violet */
+  --primary-hover: #7c3aed;
+  --secondary: #ec4899;
+  /* Pink */
+  --accent: #10b981;
+  /* Emerald */
+  --surface: #121212;
+  --surface-hover: #1e1e1e;
+  --border: #27272a;
+  --text-secondary: #a1a1aa;
+
+  /* Navbar Defaults (Dark) */
+  --navbar-scrolled-bg: rgba(8, 8, 8, 0.9);
+  --navbar-border: rgba(255, 255, 255, 0.1);
+
+  /* Gradients */
+  --gradient-main: linear-gradient(135deg, var(--primary), var(--secondary));
+  --gradient-surface: linear-gradient(to bottom right, #1a1a1a, #0a0a0a);
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 8rem;
+
+  /* Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 2rem;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease-in-out;
+}
+
+html[data-theme='light'] {
   --background: #ffffff;
-  --foreground: #171717;
-}
+  --foreground: #080808;
+  --surface: #f3f4f6;
+  --surface-hover: #e5e7eb;
+  --border: #e5e7eb;
+  --text-secondary: #52525b;
+  --gradient-surface: linear-gradient(to bottom right, #ffffff, #f3f4f6);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Navbar Light Override */
+  --navbar-scrolled-bg: rgba(255, 255, 255, 0.9);
+  --navbar-border: rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -30,13 +64,67 @@ body {
   margin: 0;
 }
 
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Outfit', sans-serif;
+  scroll-behavior: smooth;
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-sm);
+}
+
+.text-gradient {
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-md);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
 }
