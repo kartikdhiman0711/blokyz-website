@@ -1,36 +1,200 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧸 BLOKYZ – Toy Ecommerce Platform
 
-## Getting Started
+Blokyz is a full-scale modern ecommerce platform for toys built using **Next.js**.  
+The platform supports **user authentication, product browsing, secure checkout, multiple payment options (including crypto), order tracking, and a powerful admin dashboard**.
 
-First, run the development server:
+This project is designed to be **scalable, secure, and production-ready**, suitable for real-world business use.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🚀 Project Overview
+
+**Blokyz** allows customers to:
+- Create an account and log in securely
+- Browse, search, and purchase toys
+- Pay using traditional payment gateways or cryptocurrency
+- Track, cancel, and manage their orders
+- View and update personal information
+
+Admins can:
+- Manage products, categories, and inventory
+- Handle orders and users
+- Verify payments
+- Perform full CRUD operations
+- Monitor platform analytics
+
+---
+
+## ✨ Features
+
+### 👤 Customer Features
+- User Signup & Login
+- Browse Products
+- Product Search & Filtering
+- Add to Cart
+- Secure Checkout
+- Multiple Payment Options:
+  - Credit / Debit Cards
+  - UPI & Wallets
+  - Cryptocurrency Payments
+- Order Tracking
+- Order Cancellation
+- Profile & Order History Management
+
+---
+
+### 🛠️ Admin Features
+- Admin Authentication
+- Product Management (CRUD)
+- Category Management
+- Inventory Management
+- Order Management
+- User Management
+- Payment Verification
+- Sales & Analytics Dashboard
+
+---
+
+## 🧱 Tech Stack
+
+| Layer | Technology |
+|------|-----------|
+| Frontend | Next.js, TypeScript |
+| Styling | Tailwind CSS |
+| Backend | Next.js API Routes / Node.js |
+| Database | PostgreSQL |
+| ORM | Prisma |
+| Authentication | NextAuth / JWT |
+| Payments | Stripe / Razorpay / Crypto Wallet APIs |
+| Deployment | Vercel |
+| Version Control | Git & GitHub |
+
+---
+
+## 🏗️ System Architecture
+
+- Client–Server Architecture
+- RESTful APIs
+- Secure Authentication & Authorization
+- Role-Based Access Control (RBAC)
+- Modular and Scalable Design
+
+---
+
+# 📊 DATA FLOW DIAGRAMS (DFD)
+
+---
+
+## 🔹 DFD Level 0 – Context Diagram
+
+Represents **Blokyz as a single system** interacting with external entities.
+
+### External Entities
+- Customer
+- Admin
+- Payment Gateway
+- Crypto Network
+- Notification Service
+
+```mermaid
+flowchart LR
+    Customer -->|Login, Browse, Buy Toys| Blokyz
+    Admin -->|Manage Products, Orders, Users| Blokyz
+    Blokyz -->|Payment Request| PaymentGateway
+    PaymentGateway -->|Payment Status| Blokyz
+    Blokyz -->|Crypto Payment Request| CryptoNetwork
+    CryptoNetwork -->|Transaction Confirmation| Blokyz
+    Blokyz -->|Order Notifications| NotificationService
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔹 DFD Level 1 – System Decomposition
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Breaks the Blokyz system into major functional modules.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Core Processes
+- User Authentication
+- Product Management
+- Order Management
+- Payment Processing
+- Profile Management
+- Admin Dashboard
 
-## Learn More
+```mermaid
+flowchart TB
+    Customer --> Auth[Authentication Module]
+    Auth --> UserDB[(User Database)]
 
-To learn more about Next.js, take a look at the following resources:
+    Customer --> ProductView[View & Search Products]
+    ProductView --> ProductDB[(Product Database)]
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    Customer --> OrderProcess[Order Management]
+    OrderProcess --> OrderDB[(Order Database)]
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    OrderProcess --> Payment[Payment Processing]
+    Payment --> PaymentDB[(Payment Database)]
+    Payment --> PaymentGateway
+    Payment --> CryptoNetwork
 
-## Deploy on Vercel
+    Admin --> AdminPanel[Admin Dashboard]
+    AdminPanel --> ProductDB
+    AdminPanel --> OrderDB
+    AdminPanel --> UserDB
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔹 DFD Level 2 – Detailed Flow
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🧑 Customer Module – DFD Level 2
+
+```mermaid
+flowchart LR
+    Customer --> SignupLogin[Signup / Login]
+    SignupLogin --> UserDB
+
+    Customer --> Search[Search Products]
+    Search --> ProductDB
+
+    Customer --> Cart[Add to Cart]
+    Cart --> Checkout[Checkout Process]
+
+    Checkout --> PaymentService
+    PaymentService --> PaymentGateway
+    PaymentService --> CryptoNetwork
+    PaymentService --> PaymentDB
+
+    PaymentService --> OrderConfirm[Order Confirmation]
+    OrderConfirm --> OrderDB
+
+    Customer --> TrackOrder[Track / Cancel Order]
+    TrackOrder --> OrderDB
+```
+
+🛠️ Admin Module – DFD Level 2
+
+```mermaid
+flowchart LR
+    Admin --> AdminLogin[Admin Login]
+    AdminLogin --> UserDB
+
+    Admin --> ProductCRUD[Product Management]
+    ProductCRUD --> ProductDB
+
+    Admin --> OrderMgmt[Order Management]
+    OrderMgmt --> OrderDB
+
+    Admin --> UserMgmt[User Management]
+    UserMgmt --> UserDB
+
+    Admin --> Analytics[Reports & Analytics]
+```
+
+💳 Payment Module – DFD Level 2
+
+```mermaid
+flowchart TB
+    Checkout --> PaymentProcessor
+    PaymentProcessor -->|Card / UPI| PaymentGateway
+    PaymentProcessor -->|Crypto| CryptoNetwork
+    PaymentGateway --> PaymentDB
+    CryptoNetwork --> PaymentDB
+    PaymentDB --> OrderStatusUpdate
+```
