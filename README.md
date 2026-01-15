@@ -198,3 +198,85 @@ flowchart TB
     CryptoNetwork --> PaymentDB
     PaymentDB --> OrderStatusUpdate
 ```
+
+## 🔐 Security Features
+- Encrypted Password Storage
+- Token-Based Authentication (JWT)
+- Secure API Routes
+- Role-Based Access Control
+- Secure Payment Handling
+- Input Validation & Sanitization
+
+## 📦 Future Enhancements
+- AI-based Product Recommendations
+- Reviews & Ratings System
+- Subscription-Based Toy Boxes
+- Multi-Vendor Marketplace
+
+
+```mermaid
+erDiagram
+    USER {
+        uuid id PK
+        string name
+        string email
+        string password
+        string role
+        string phone
+        datetime createdAt
+    }
+
+    PRODUCT {
+        uuid id PK
+        string name
+        string description
+        float price
+        int stock
+        uuid categoryId FK
+        datetime createdAt
+    }
+
+    CATEGORY {
+        uuid id PK
+        string name
+        string description
+    }
+
+    ORDER {
+        uuid id PK
+        uuid userId FK
+        float totalAmount
+        string status
+        datetime createdAt
+    }
+
+    ORDER_ITEM {
+        uuid id PK
+        uuid orderId FK
+        uuid productId FK
+        int quantity
+        float price
+    }
+
+    PAYMENT {
+        uuid id PK
+        uuid orderId FK
+        string paymentMethod
+        string paymentStatus
+        string transactionId
+        datetime createdAt
+    }
+
+    USER ||--o{ ORDER : places
+    ORDER ||--o{ ORDER_ITEM : contains
+    PRODUCT ||--o{ ORDER_ITEM : included_in
+    CATEGORY ||--o{ PRODUCT : categorizes
+    ORDER ||--|| PAYMENT : has
+```
+
+## 👨‍💻 Author
+Kartik Dhiman
+
+## 🏁 Conclusion
+Blokyz is a complete ecommerce solution designed with modern technologies and best practices.
+It demonstrates real-world ecommerce workflows, scalable architecture, and secure payment handling, making it suitable for client demos, interviews, and production deployment.
