@@ -215,7 +215,7 @@ flowchart TB
 - Mobile Application (React Native)
 
 ## 👨‍💻 Author
-Kartik Dhiman
+Kartik Dhiman & Anirudh Sharma
 
 ## 🏁 Conclusion
 Blokyz is a complete ecommerce solution designed with modern technologies and best practices.
